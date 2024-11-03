@@ -1,6 +1,7 @@
 import pickle
 import re
 from collections import deque
+from textwrap import dedent
 
 import tweepy
 
@@ -20,12 +21,12 @@ class TweetBot(PostBot):
         self.chr_limit = chr_limit
         super().__init__(name, credentials, source_file)
 
-    def initClient(self, credentials: dict[str, str]) -> tweepy.Client:
-        return tweepy.Client(
-            consumer_key=credentials["CONSUMER_KEY"],
-            consumer_secret=credentials["CONSUMER_SECRET"],
-            access_token=credentials["ACCESS_TOKEN"],
-            access_token_secret=credentials["ACCESS_TOKEN_SECRET"],
+    def initClient(self):
+        self.client = tweepy.Client(
+            consumer_key=self.credentials["CONSUMER_KEY"],
+            consumer_secret=self.credentials["CONSUMER_SECRET"],
+            access_token=self.credentials["ACCESS_TOKEN"],
+            access_token_secret=self.credentials["ACCESS_TOKEN_SECRET"],
         )
 
     def post(self):
@@ -34,6 +35,7 @@ class TweetBot(PostBot):
             tweet = super().getRandomPost(posts)
             log_dict = self.__getRecentDict()
             try:
+                self.initClient()
                 self.client.create_tweet(text=tweet)
                 log_dict[self.name].popleft()
                 log_dict[self.name].append(tweet)
@@ -71,13 +73,15 @@ class TweetBot(PostBot):
                     if post not in log
                 ]
         except FileNotFoundError:
-            default_text = """
+            default_text = dedent(
+                """
             # Place tweets here. There should be one tweet per line. If you have 'multi-line' tweets, write "\n" where you want your line breaks to be.
             # The script will ignore any empty lines, as well as lines that are 'commented' out with a "#".
             # It is up to you to ensure that each tweet is at maximum 280 characters long.
             # Please have at minimum 12 tweets in this file.
             # For the Free API of Twitter, also make sure you schedule it such that main.py does not run more often than every 90 minutes.
             """
+            )
             with open(self.source_file, "w+") as f:
                 f.write(default_text)
             print(

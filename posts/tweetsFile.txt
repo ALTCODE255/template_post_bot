@@ -1,0 +1,5 @@
+# Place tweets here. There should be one tweet per line. If you have 'multi-line' tweets, write "\n" where you want your line breaks to be.
+# The script will ignore any empty lines, as well as lines that are 'commented' out with a "#".
+# It is up to you to ensure that each tweet is at maximum 280 characters long.
+# Please have at minimum 12 tweets in this file.
+# For the Free API of Twitter, also make sure you schedule it such that main.py does not run more often than every 90 minutes.

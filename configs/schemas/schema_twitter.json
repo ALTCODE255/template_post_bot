@@ -43,7 +43,7 @@
             "enabled",
             "filepath",
             "storage_threshold",
-            "tweet_chr_limit",
+            "chr_limit",
             "credentials"
         ]
     },

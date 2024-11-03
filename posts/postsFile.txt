@@ -1,0 +1,4 @@
+# Place possible posts for the script to select from here. There should be one per line. If you have 'multi-line' posts, write "
+" where you want your line breaks to be.
+# The script will ignore any empty lines, as well as lines that are 'commented' out with a "#".
+# It is up to you to ensure that each post is at maximum 300 characters long.

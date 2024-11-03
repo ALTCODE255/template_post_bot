@@ -1,5 +1,6 @@
 import re
 from io import BytesIO
+from textwrap import dedent
 from urllib.request import Request, urlopen
 
 import atproto
@@ -11,10 +12,11 @@ class BskyBot(PostBot):
     def __init__(self, name: str, credentials: dict[str, str], source_file: str):
         super().__init__(name, credentials, source_file)
 
-    def initClient(self, credentials: dict[str, str]) -> atproto.Client:
-        client = atproto.Client()
-        client.login(credentials["user-handle"], credentials["app-password"])
-        return client
+    def initClient(self):
+        self.client = atproto.Client()
+        self.client.login(
+            self.credentials["user-handle"], self.credentials["app-password"]
+        )
 
     def post(self):
         posts = self.getPosts()
@@ -29,6 +31,7 @@ class BskyBot(PostBot):
                 if img_data:
                     post_images.append(img_data)
             try:
+                self.initClient()
                 if post_images:
                     self.client.send_images(text=post_text, images=post_images)
                 elif post_text:
@@ -45,11 +48,13 @@ class BskyBot(PostBot):
         try:
             return super().getPosts()
         except FileNotFoundError:
-            default_text = """
+            default_text = dedent(
+                """
             # Place possible posts for the script to select from here. There should be one per line. If you have 'multi-line' posts, write "\n" where you want your line breaks to be.
             # The script will ignore any empty lines, as well as lines that are 'commented' out with a "#".
             # It is up to you to ensure that each post is at maximum 300 characters long.
             """
+            )
             with open(self.source_file, "w+") as f:
                 f.write(default_text)
             print(

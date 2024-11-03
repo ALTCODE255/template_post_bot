@@ -23,5 +23,5 @@ def loadConfig(config_file: str, schema_file: str) -> list[dict]:
         )
         return []
     except ValidationError as e:
-        print(e)
+        print(f"[{config_file}]", e)
         sys.exit(1)

@@ -8,11 +8,11 @@ class PostBot(ABC):
     @abstractmethod
     def __init__(self, name: str, credentials: dict[str, str], source_file: str):
         self.name = name
-        self.client = self.initClient(credentials)
+        self.credentials = credentials
         self.source_file = source_file
 
     @abstractmethod
-    def initClient(self, credentials: dict[str, str]) -> Any:
+    def initClient(self):
         pass
 
     @abstractmethod
