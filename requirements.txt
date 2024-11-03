@@ -1,0 +1,4 @@
+atproto>=0.0.55
+jsonschema>=4.23.0
+JSF>=0.11.2
+tweepy>=4.14.0

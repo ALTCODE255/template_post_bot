@@ -1,0 +1,30 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": { "type": "string", "default": "anyNameHere" },
+            "enabled": { "type": "boolean", "default": false },
+            "filepath": {
+                "type": "string",
+                "default": "posts/postsFile.txt"
+            },
+            "credentials": {
+                "type": "object",
+                "properties": {
+                    "user-handle": {
+                        "type": "string",
+                        "default": "username.bsky.social"
+                    },
+                    "app-password": {
+                        "type": "string",
+                        "default": "your-app-pass-here"
+                    }
+                },
+                "required": ["user-handle", "app-password"]
+            }
+        },
+        "required": ["name", "enabled", "filepath", "credentials"]
+    },
+    "minItems": 1
+}

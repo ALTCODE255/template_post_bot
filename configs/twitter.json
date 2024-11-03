@@ -1,0 +1,28 @@
+[
+    {
+        "name": "anyNameHere",
+        "enabled": false,
+        "filepath": "posts/tweetsFile.txt",
+        "storage_threshold": 11,
+        "chr_limit": 280,
+        "credentials": {
+            "CONSUMER_KEY": "",
+            "CONSUMER_SECRET": "",
+            "ACCESS_TOKEN": "",
+            "ACCESS_TOKEN_SECRET": ""
+        }
+    },
+    {
+        "name": "anyNameHere2",
+        "enabled": false,
+        "filepath": "posts/tweetsFile2.txt",
+        "storage_threshold": 11,
+        "chr_limit": 280,
+        "credentials": {
+            "CONSUMER_KEY": "",
+            "CONSUMER_SECRET": "",
+            "ACCESS_TOKEN": "",
+            "ACCESS_TOKEN_SECRET": ""
+        }
+    }
+]

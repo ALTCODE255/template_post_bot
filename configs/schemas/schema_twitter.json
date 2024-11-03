@@ -1,0 +1,51 @@
+{
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": { "type": "string", "default": "anyNameHere" },
+            "enabled": { "type": "boolean", "default": false },
+            "filepath": {
+                "type": "string",
+                "default": "posts/tweetsFile.txt"
+            },
+            "storage_threshold": {
+                "type": "integer",
+                "minimum": 11,
+                "default": 11
+            },
+            "chr_limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4000,
+                "default": 280
+            },
+            "credentials": {
+                "type": "object",
+                "properties": {
+                    "CONSUMER_KEY": { "type": "string", "default": "" },
+                    "CONSUMER_SECRET": { "type": "string", "default": "" },
+                    "ACCESS_TOKEN": { "type": "string", "default": "" },
+                    "ACCESS_TOKEN_SECRET": {
+                        "type": "string",
+                        "default": ""
+                    }
+                },
+                "required": [
+                    "CONSUMER_KEY",
+                    "CONSUMER_SECRET",
+                    "ACCESS_TOKEN",
+                    "ACCESS_TOKEN_SECRET"
+                ]
+            }
+        },
+        "required": [
+            "enabled",
+            "filepath",
+            "storage_threshold",
+            "tweet_chr_limit",
+            "credentials"
+        ]
+    },
+    "minProperties": 1
+}

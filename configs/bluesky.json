@@ -1,0 +1,20 @@
+[
+    {
+        "name": "anyNameHere",
+        "enabled": true,
+        "filepath": "posts/postsFile.txt",
+        "credentials": {
+            "user-handle": "username.bsky.social",
+            "app-password": "your-app-pass-here"
+        }
+    },
+    {
+        "name": "anyNameHere2",
+        "enabled": false,
+        "filepath": "posts/postsFile2.txt",
+        "credentials": {
+            "user-handle": "username2.bsky.social",
+            "app-password": "your-app2-pass-here"
+        }
+    }
+]
