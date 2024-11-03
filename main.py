@@ -12,13 +12,13 @@ if __name__ == "__main__":
     for schema_file in map(
         os.path.basename, glob.glob("configs/schemas/schema_*.json")
     ):
-        config_file = schema_file.replace("schema_", "")
+        config_file = schema_file.strip("schema_")
         conf_list = loadConfig(
             f"configs/{config_file}", f"configs/schemas/{schema_file}"
         )
-        for bot_conf in conf_list:
-            match (config_file):
-                case "bluesky.json":
+        match (config_file):
+            case "bluesky.json":
+                for bot_conf in conf_list:
                     if bot_conf["enabled"]:
                         bot_client = BskyBot(
                             bot_conf["name"],
@@ -26,7 +26,8 @@ if __name__ == "__main__":
                             bot_conf["filepath"],
                         )
                         bot_client.post()
-                case "twitter.json":
+            case "twitter.json":
+                for bot_conf in conf_list:
                     if bot_conf["enabled"]:
                         bot_client = TweetBot(
                             bot_conf["name"],
