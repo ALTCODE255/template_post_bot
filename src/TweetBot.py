@@ -39,8 +39,8 @@ class TweetBot(PostBot):
                 self.client.create_tweet(text=tweet)
                 log_dict[self.name].popleft()
                 log_dict[self.name].append(tweet)
-                with open("recent.pkl", "w+") as f:
-                    pickle.dumps(log_dict)
+                with open("twt_recent.pkl", "wb") as f:
+                    pickle.dump(log_dict, f)
             except tweepy.Forbidden as error:
                 if "duplicate content" in str(error):
                     print(
@@ -91,7 +91,7 @@ class TweetBot(PostBot):
 
     def __getRecentDict(self) -> dict[str, deque[str | None]]:
         try:
-            with open("recent.pkl", "rb") as f:
+            with open("twt_recent.pkl", "rb") as f:
                 log_dict = pickle.load(f)
         except FileNotFoundError:
             log_dict = {}
