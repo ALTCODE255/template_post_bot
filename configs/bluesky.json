@@ -1,7 +1,7 @@
 [
     {
         "name": "anyNameHere",
-        "enabled": true,
+        "enabled": false,
         "filepath": "posts/postsFile.txt",
         "credentials": {
             "user-handle": "username.bsky.social",
