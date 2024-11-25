@@ -70,7 +70,7 @@ class TweetBot(PostBot):
                     for post in re.findall(
                         r"^(?!#.*$)\S.*", f.read().strip("\n"), re.MULTILINE
                     )
-                    if post not in log
+                    if post.replace("\\n", "\n") not in log
                 ]
         except FileNotFoundError:
             default_text = dedent(
