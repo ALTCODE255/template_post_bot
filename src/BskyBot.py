@@ -1,6 +1,5 @@
 import re
 from io import BytesIO
-from textwrap import dedent
 from urllib.request import Request, urlopen
 
 import atproto
@@ -9,8 +8,23 @@ from .PostBot import PostBot
 
 
 class BskyBot(PostBot):
-    def __init__(self, name: str, credentials: dict[str, str], source_file: str):
-        super().__init__(name, credentials, source_file)
+    def __init__(
+        self, name: str, credentials: dict[str, str], source_file: str, log_thres: str
+    ):
+        super().__init__(name, credentials, source_file, log_thres)
+
+    @property
+    def SCHEMA_NAME(self) -> str:
+        return "Bluesky"
+
+    @property
+    def DEFAULT_FILE_TEXT(self) -> str:
+        return """
+            # Place possible posts for the script to select from here. There should be one per line. If you have 'multi-line' posts, write "\n" where you want your line breaks to be.
+            # The script will ignore any empty lines, as well as lines that are 'commented' out with a "#".
+            # It is up to you to ensure that each post is at maximum 300 characters long.
+            # To include images, begin a line with "getImage[url]". url should directly link to an image, and should not be enclosed in quotes. You can repeat this for up to four times at the beginning of a line, one per image.
+            """
 
     def initClient(self):
         self.client = atproto.Client()
@@ -18,49 +32,29 @@ class BskyBot(PostBot):
             self.credentials["user-handle"], self.credentials["app-password"]
         )
 
-    def post(self):
-        posts = self.getPosts()
-        if self.validatePosts(posts):
-            choice = super().getRandomPost(posts)
-            img_pattern = r"(?:^|\s)getImage\[(.+?)]"
-            post_text = re.sub(img_pattern, "", choice)
-            post_images = []
-            image_urls = [match[0] for match in re.findall(img_pattern, choice)]
-            for url in image_urls:
-                img_data = self.__getImage(url)
-                if img_data:
-                    post_images.append(img_data)
-            try:
-                self.initClient()
-                if post_images:
-                    self.client.send_images(text=post_text, images=post_images)
-                elif post_text:
-                    self.client.send_post(choice)
-                else:
-                    print(f"Attempted to send an invalid image post: '{choice}'")
-                    print("Skipped:", self.name)
-            except Exception as error:
-                print(f"[{self.name}]", error)
-        else:
-            print("Skipped:", self.name)
-
-    def getPosts(self) -> list[str]:
+    def _postLogic(self, post) -> bool:
+        img_pattern = r"(?:^|\s)getImage\[(.+?)]"
+        post_text = re.sub(img_pattern, "", post)
+        post_images = []
+        image_urls = [match[0] for match in re.findall(img_pattern, post)]
+        for url in image_urls:
+            img_data = self.__getImage(url)
+            if img_data:
+                post_images.append(img_data)
         try:
-            return super().getPosts()
-        except FileNotFoundError:
-            default_text = dedent(
-                """
-            # Place possible posts for the script to select from here. There should be one per line. If you have 'multi-line' posts, write "\\n" where you want your line breaks to be.
-            # The script will ignore any empty lines, as well as lines that are 'commented' out with a "#".
-            # It is up to you to ensure that each post is at maximum 300 characters long.
-            """
-            )
-            with open(self.source_file, "w+") as f:
-                f.write(default_text)
-            print(
-                f"Source file '{self.source_file}' not found. A clean file has been generated for you."
-            )
-            return []
+            self.initClient()
+            if post_images:
+                self.client.send_images(text=post_text, images=post_images)
+                return True
+            elif post_text:
+                self.client.send_post(post)
+                return True
+            else:
+                print(f"Attempted to send an invalid image post: '{post}'")
+                return False
+        except Exception as error:
+            print(f"[{self.name}]", error)
+            return False
 
     def validatePosts(self, posts: list[str]) -> bool:
         if not posts:

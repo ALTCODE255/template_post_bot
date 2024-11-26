@@ -5,6 +5,11 @@
         "properties": {
             "name": { "type": "string", "default": "anyNameHere" },
             "enabled": { "type": "boolean", "default": false },
+            "storage_threshold": {
+                "type": "integer",
+                "minimum": 0,
+                "default": 0
+            },
             "filepath": {
                 "type": "string",
                 "default": "posts/postsFile.txt"
@@ -24,7 +29,13 @@
                 "required": ["user-handle", "app-password"]
             }
         },
-        "required": ["name", "enabled", "filepath", "credentials"]
+        "required": [
+            "name",
+            "enabled",
+            "storage_threshold",
+            "filepath",
+            "credentials"
+        ]
     },
     "minItems": 1
 }

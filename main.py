@@ -24,6 +24,7 @@ if __name__ == "__main__":
                             bot_conf["name"],
                             bot_conf["credentials"],
                             bot_conf["filepath"],
+                            bot_conf["storage_threshold"]
                         )
                         bot_client.post()
             case "twitter.json":

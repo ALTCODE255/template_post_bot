@@ -22,16 +22,16 @@ A template for making Twitter/Bluesky bots. Refactored from [template_twitter_bo
    - If you run bots for both, don't delete either file.
 3. Go back to the `configs` folder. Open `twitter.json` (or `bluesky.json`) with your favorite text editor. Note: Do not rename this file.
 4. Change the value of `name` to anything you want. This is how the script identifies the bot.
-   - For Twitter: if you change this later on, you will lose the bot's recent tweets log stored in `twt_recent.pkl`. If you do this, delete the `twt_recent.pkl` file and let it regenerate itself on the script's next run.
+   - For Twitter: if you change this later on, you will lose the bot's recent tweets log stored in `recent.db`.
 5. Paste your API keys or app password into the `credentials` section.
-   - For Twitter, OPTIONALLY:
-     - Set `storage_threshold` to an integer higher than `11` for higher "randomness".
-        - This variable indicates how many recent tweets the program stores (to avoid duplicate tweets).
-     - Change `posts/tweetsFile.txt` to a different path or filename.
-        - This variable indicates where you store your pool of potential tweets.
-6. Change the value of `enabled` in the config file from `false` to `true`.
-7. In the `.txt` file located in the `posts` folder (or other folder, if you changed it in step 3), fill the file with posts according to the guidelines specified.
-    - For Twitter: If you changed `storage_threshold` in step 3, make sure the number of tweets you enter in this file is _higher_ than `storage_threshold`.
+6. The `storage_threshold` variable indicates how many recent posts you want the program to check to avoid re-posting duplicates.
+   - For Twitter, this value must be at least `11`.
+   - For Bluesky, you can set this to any number.
+7. OPTIONALLY, you can also change `posts/[filename].txt` to a different path or filename.
+        - This variable indicates where you store your pool of potential posts.
+8. Change the value of `enabled` in the config file from `false` to `true`.
+9. In the `.txt` file located in the `posts` folder (or other folder, if you changed it in step 3), fill the file with posts according to the guidelines specified.
+   - If you changed `storage_threshold` in step 3, make sure the number of posts you enter in this file is _higher_ than `storage_threshold`.
 
 #### Running the Script
 8. Use a task scheduler of your choice to schedule your machine to **run the Python file** however often you want your bot to post.
@@ -43,4 +43,4 @@ A template for making Twitter/Bluesky bots. Refactored from [template_twitter_bo
    3. Do this for however many bots you'd like to include.
 10. That's it!
 
-**NOTE FOR TWITTER:** Do _not_ delete the `recent.pkl` file from the folder unless you wish to reset the log of recent tweets. It is necessary for keeping a record of the most recently generated tweets to avoid being throttled by Twitter for duplicate tweets.
+**NOTE:** Especially for Twitter, avoid deleting the `recent.db` file. It's necessary for avoiding an error that can be thrown if the bot attempts to post something that has already been posted recently.

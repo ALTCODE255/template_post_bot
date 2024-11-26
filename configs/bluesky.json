@@ -2,6 +2,7 @@
     {
         "name": "anyNameHere",
         "enabled": false,
+        "storage_threshold": 0,
         "filepath": "posts/postsFile.txt",
         "credentials": {
             "user-handle": "username.bsky.social",
@@ -11,6 +12,7 @@
     {
         "name": "anyNameHere2",
         "enabled": false,
+        "storage_threshold": 0,
         "filepath": "posts/postsFile2.txt",
         "credentials": {
             "user-handle": "username2.bsky.social",
