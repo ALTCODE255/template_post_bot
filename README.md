@@ -1,6 +1,6 @@
-## Nameless' Post Bot Template
+## Bluesky and Twitter Bot Template
 
-A template for making Twitter/Bluesky bots. Refactored from [template_twitter_bot](https://github.com/ALTCODE255/template_twitter_bot/).
+A template for making Twitter/Bluesky bots.
 
 ### Requirements
 
@@ -13,7 +13,7 @@ A template for making Twitter/Bluesky bots. Refactored from [template_twitter_bo
 
 ### Instructions
 
-1. [Download](https://github.com/ALTCODE255/template_post_bot/archive/refs/heads/master.zip) this Github repository and unzip it.
+1. Download this Github repository and unzip it.
 
 #### Configuration
 2. Navigate to the `schemas` folder inside `configs`.
