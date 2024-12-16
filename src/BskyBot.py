@@ -50,7 +50,7 @@ class BskyBot(PostBot):
                 self.client.send_post(post)
                 return True
             else:
-                print(f"Attempted to send an invalid image post: '{post}'")
+                print(f"Attempted to send an invalid post: '{post}'")
                 return False
         except Exception as error:
             print(f"[{self.name}]", error)
