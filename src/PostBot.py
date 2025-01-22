@@ -54,9 +54,9 @@ class PostBot(ABC):
                 self.__addToRecent(choice)
                 self.__clearOldRecent()
             else:
-                print("Skipped:", self.name)
+                print(f"[{self.SCHEMA_NAME}] Skipped:", self.name)
         else:
-            print("Skipped:", self.name)
+            print(f"[{self.SCHEMA_NAME}] Skipped:", self.name)
 
     def getRandomPost(self, posts: list[str]) -> str:
         return random.choice(posts)
