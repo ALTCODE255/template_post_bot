@@ -36,7 +36,7 @@ class BskyBot(PostBot):
         img_pattern = r"(?:^|\s)getImage\[(.+?)]"
         post_text = re.sub(img_pattern, "", post)
         post_images = []
-        image_urls = [match[0] for match in re.findall(img_pattern, post)]
+        image_urls = [match for match in re.findall(img_pattern, post)]
         for url in image_urls:
             img_data = self.__getImage(url)
             if img_data:
