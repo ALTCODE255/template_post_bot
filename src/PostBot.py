@@ -65,13 +65,13 @@ class PostBot(ABC):
         try:
             with open(self.source_file, "r", encoding="utf-8") as f:
                 log = self.__getRecent()
-            posts = [
-                post.replace("\\n", "\n")
-                for post in re.findall(
-                    r"^(?!#.*$)\S.*", f.read().strip("\n"), re.MULTILINE
-                )
-                if post.replace("\\n", "\n") not in log
-            ]
+                posts = [
+                    post.replace("\\n", "\n")
+                    for post in re.findall(
+                        r"^(?!#.*$)\S.*", f.read().strip("\n"), re.MULTILINE
+                    )
+                    if post.replace("\\n", "\n") not in log
+                ]
             if not posts:
                 print(f"Source file '{self.source_file}' has no posts.")
             return posts
