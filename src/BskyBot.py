@@ -41,6 +41,9 @@ class BskyBot(PostBot):
             img_data = self.__getImage(url)
             if img_data:
                 post_images.append(img_data)
+            else:
+                print(f"Could not upload image with url of: {url}")
+                return False
         try:
             self.initClient()
             if post_images:
